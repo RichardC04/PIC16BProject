@@ -1,0 +1,36 @@
+.dropdown-custom .Select-control,
+.dropdown-custom .css-yk16xz-control {
+  background-color: #fff !important;
+  color: #000 !important;
+}
+
+.dropdown-custom .Select-placeholder,
+.dropdown-custom .css-1wa3eu0-placeholder {
+  color: #999 !important;
+}
+
+.dropdown-custom .Select-menu-outer,
+.dropdown-custom .css-1nmdiq5-menu {
+  background-color: #fff !important;
+  color: #000 !important;
+}
+
+.dropdown-custom .Select-option,
+.dropdown-custom .css-1n7v3ny-option {
+  background-color: #fff !important;
+  color: #000 !important;
+}
+
+
+.dropdown-custom .Select-option.is-focused,
+.dropdown-custom .css-1n7v3ny-option:hover {
+  background-color: #eee !important;
+  color: #000 !important;
+}
+
+
+.dropdown-custom .Select-option.is-selected,
+.dropdown-custom .css-1n7v3ny-option:active {
+  background-color: #ccc !important;
+  color: #000 !important;
+}
