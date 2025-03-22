@@ -14,7 +14,7 @@ server = app.server
 
 players_df = pd.read_csv("players_stats_s14_clean.csv")
 
-# rename
+# Read player data from CSV and rename columns for clarity
 players = (
     players_df
     .rename(columns={"Player": "name", "Position": "lane"})
@@ -26,8 +26,11 @@ players = (
 lanes = ["TOP", "JUNGLE", "MID", "ADC", "SUPPORT"]
 
 def create_team_layout(team_id):
+    '''
+    Create the layout for a team's player selection dropdowns
+    '''
     layout = []
-    for lane in lanes:
+    for lane in lanes:# Create dropdown options by filtering players for the current lane
         options = [
             {"label": p["name"], "value": p["name"]}
             for p in players if p["lane"] == lane
@@ -123,6 +126,11 @@ app.layout = dbc.Container([
 )
 def save_template(n_clicks, template_name, t1_top, t1_jgl, t1_mid, t1_adc, t1_sup,
                   t2_top, t2_jgl, t2_mid, t2_adc, t2_sup, store_templates):
+    '''
+    Save the current team composition as a template.
+    If no template name is provided, return the current templates unchanged.
+    Otherwise, save the selected players for both teams.
+    '''
     if not template_name:
         return store_templates
     team1 = [t1_top, t1_jgl, t1_mid, t1_adc, t1_sup]
@@ -136,6 +144,9 @@ def save_template(n_clicks, template_name, t1_top, t1_jgl, t1_mid, t1_adc, t1_su
     Input("store-templates", "data")
 )
 def update_template_dropdown_options(store_templates):
+    '''
+    Update the template dropdown options based on the saved templates.
+    '''
     options = [{"label": t["name"], "value": t["name"]} for t in store_templates]
     return options
 
@@ -158,6 +169,9 @@ def update_template_dropdown_options(store_templates):
     prevent_initial_call=True
 )
 def load_template(n_clicks, selected_template_name, store_templates):
+    '''
+    Load a saved template to update the team player selections.
+    '''
     if not selected_template_name:
         return [None] * 10
     for t in store_templates:
@@ -188,6 +202,11 @@ def load_template(n_clicks, selected_template_name, store_templates):
 )
 def calculate_win_rate(n_clicks, t1_top, t1_jgl, t1_mid, t1_adc, t1_sup,
                        t2_top, t2_jgl, t2_mid, t2_adc, t2_sup, store_history):
+    """
+    Calculate the win rate for both teams based on the selected players.
+    Validates that all positions are filled and that no duplicate players are selected.
+    Updates and returns the result message and the history of predictions.
+    """
     team1 = [t1_top, t1_jgl, t1_mid, t1_adc, t1_sup]
     team2 = [t2_top, t2_jgl, t2_mid, t2_adc, t2_sup]
     # players for all lanes
@@ -214,6 +233,9 @@ def calculate_win_rate(n_clicks, t1_top, t1_jgl, t1_mid, t1_adc, t1_sup,
     Input("store-history", "data")
 )
 def update_history_div(store_history):
+    '''
+    Update the history display area with past win rate predictions.
+    '''
     if not store_history:
         return "No history"
     display_list = []
