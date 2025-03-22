@@ -956,14 +956,14 @@ def create_team_variants(base_team, n_variants=5):
         
         # Modify the selected roles
         for role in roles_to_modify:
-            # Choose 2-5 stats to modify
+            # Choose 5-8 stats to modify
             stats = list(base_team[role].keys())
-            n_stats_to_modify = np.random.randint(2, min(6, len(stats)))
+            n_stats_to_modify = np.random.randint(5, min(8, len(stats)))
             stats_to_modify = np.random.choice(stats, size=n_stats_to_modify, replace=False)
             
             for stat in stats_to_modify:
-                # Modify by ±10-30%
-                change_percent = np.random.uniform(0.1, 0.3) * (1 if np.random.random() > 0.5 else -1)
+                # Modify by ±25-50%
+                change_percent = np.random.uniform(0.25, 0.5) * (1 if np.random.random() > 0.5 else -1)
                 variant[role][stat] = base_team[role][stat] * (1 + change_percent)
         
         variants.append(variant)
